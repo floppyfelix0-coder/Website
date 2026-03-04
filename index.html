@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHub - Publish Your Books</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <h1 class="logo">📚 BookHub</h1>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="viewToggle">View Published Books</button>
+                    <button class="btn btn-danger" id="syncBtn">Sync with GitHub</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Publisher Section -->
+            <section id="publisherSection" class="publisher-section">
+                <div class="publisher-header">
+                    <h2>📖 Publish Your Book</h2>
+                    <p>Share your literary work with the world</p>
+                </div>
+
+                <div class="publisher-form">
+                    <!-- Genre Selection -->
+                    <div class="form-group">
+                        <label for="genre">Genre</label>
+                        <div class="genre-input-group">
+                            <input type="text" id="genre" placeholder="e.g., Science Fiction, Romance, Mystery..." list="genreList">
+                            <datalist id="genreList"></datalist>
+                            <button type="button" class="btn btn-secondary" id="addGenreBtn">+ New Genre</button>
+                        </div>
+                    </div>
+
+                    <!-- Book Title -->
+                    <div class="form-group">
+                        <label for="bookTitle">Book Title</label>
+                        <input type="text" id="bookTitle" placeholder="Enter your book title" maxlength="200">
+                    </div>
+
+                    <!-- Author -->
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <input type="text" id="author" placeholder="Your name or pen name" maxlength="100">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" placeholder="Write a compelling description of your book..." rows="4" maxlength="1000"></textarea>
+                        <small id="descriptionCount">0/1000</small>
+                    </div>
+
+                    <!-- Book Structure -->
+                    <div class="form-group">
+                        <label>Chapters</label>
+                        <div id="chaptersContainer" class="chapters-container">
+                            <div class="chapter-item">
+                                <input type="text" class="chapter-title" placeholder="Chapter 1 Title">
+                                <div class="pages-input">
+                                    <input type="number" class="pages-count" placeholder="Pages" min="1" max="5000">
+                                    <span class="pages-label">pages</span>
+                                </div>
+                                <button type="button" class="btn btn-danger btn-small" onclick="this.parentElement.remove()">✕</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="addChapterBtn">+ Add Chapter</button>
+                    </div>
+
+                    <!-- Book Cover URL -->
+                    <div class="form-group">
+                        <label for="coverUrl">Cover Image URL</label>
+                        <input type="url" id="coverUrl" placeholder="https://example.com/book-cover.jpg">
+                        <div id="coverPreview" class="cover-preview"></div>
+                    </div>
+
+                    <!-- Status Messages -->
+                    <div id="statusMessage" class="status-message"></div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="publishBtn">Publish Book</button>
+                        <button type="button" class="btn btn-secondary" id="resetBtn">Clear Form</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Books View Section -->
+            <section id="booksViewSection" class="books-view-section" style="display: none;">
+                <div class="books-header">
+                    <h2>📚 Published Books</h2>
+                    <div class="search-filter">
+                        <input type="text" id="searchBooks" placeholder="Search by title, author, or genre...">
+                        <select id="filterGenre">
+                            <option value="">All Genres</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="booksContainer" class="books-container">
+                    <div class="empty-state">
+                        <p>📭 No books published yet. Start by publishing your first book!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Book</h2>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div id="editFormContainer" class="modal-body">
+                <!-- Edit form will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content modal-confirm">
+            <div class="modal-header">
+                <h2 id="confirmTitle">Confirm Action</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+                <button class="btn btn-danger" id="confirmButton">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
